@@ -6,6 +6,7 @@ import Loader from "./components/Loader";
 import "./App.css";
 import axios from "axios";
 import { IResult } from "./components/ResultsList";
+import ErrorComponent from "./components/ErrorComponent";
 
 interface State {
   results: IResult[];
@@ -45,6 +46,7 @@ class App extends Component<object, State> {
       <ErrorBoundary>
         <div className="app">
           <SearchBar onSearch={this.doSearch} />
+          <ErrorComponent />
           {this.state.loading ? (
             <Loader />
           ) : (
