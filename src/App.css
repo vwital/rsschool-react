@@ -28,15 +28,24 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .logo {
+    animation: logo-spin infinite 10s linear;
   }
 }
 
-.card {
-  padding: 2em;
+.search-field {
+  display: flex;
+  gap: 30px;
 }
 
-.read-the-docs {
-  color: #888;
+.search-field input {
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.person-list {
+  p {
+    padding: 0;
+    margin: 5px;
+  }
 }

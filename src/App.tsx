@@ -1,35 +1,59 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Component, ReactNode } from "react";
+import SearchBar from "./components/SearchBar";
+import ResultList from "./components/ResultsList";
+import ErrorBoundary from "./components/ErrorBoundary";
+import Loader from "./components/Loader";
 import "./App.css";
+import axios from "axios";
+import { IResult } from "./components/ResultsList";
 
-function App() {
-  const [count, setCount] = useState(0);
+interface State {
+  results: IResult[];
+  loading: boolean;
+  error: string | null;
+}
+class App extends Component<object, State> {
+  constructor(props: object) {
+    super(props);
+    this.state = {
+      results: [],
+      loading: false,
+      error: null,
+    };
+  }
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+  componentDidMount() {
+    const searchRequest = localStorage.getItem("request") || "";
+    this.doSearch(searchRequest);
+  }
+
+  doSearch = (request: string) => {
+    this.setState({ loading: true });
+    axios
+      .get(`https://swapi.dev/api/people/?search=${request}`)
+      .then((response) => {
+        this.setState({ results: response.data.results, loading: false });
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+        this.setState({ error: error.message, loading: false });
+      });
+  };
+
+  render(): ReactNode {
+    return (
+      <ErrorBoundary>
+        <div className="app">
+          <SearchBar onSearch={this.doSearch} />
+          {this.state.loading ? (
+            <Loader />
+          ) : (
+            <ResultList results={this.state.results} />
+          )}
+        </div>
+      </ErrorBoundary>
+    );
+  }
 }
 
 export default App;
