@@ -1,0 +1,9 @@
+.search-field {
+  display: flex;
+  gap: 30px;
+}
+
+.search-field input {
+  padding: 10px;
+  border-radius: 10px;
+}
