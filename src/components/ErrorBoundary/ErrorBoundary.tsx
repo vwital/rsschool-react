@@ -1,15 +1,12 @@
-import React, { Component, ErrorInfo, ReactNode } from "react";
+import { Component, ErrorInfo, ReactNode } from "react";
+import { IErrorBoundaryProps, IErrorBoundaryState } from "./interfaces";
+import config from "./config";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-}
-
-class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+class ErrorBoundary extends Component<
+  IErrorBoundaryProps,
+  IErrorBoundaryState
+> {
+  constructor(props: IErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }
@@ -23,9 +20,9 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <>
-          <h1>Error. Something went wrong.</h1>
+          <h1>{config.title}</h1>
           <button>
-            <a href="">Reload Page</a>
+            <a href="">{config.reloadButtonText}</a>
           </button>
         </>
       );

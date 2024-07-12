@@ -1,6 +1,6 @@
-import reactLogo from "./../assets/react.svg";
+import reactLogo from "@/assets/react.svg";
 import { Component, ReactNode } from "react";
-import "./../App.css";
+import "./loader.css";
 
 class Loader extends Component {
   render(): ReactNode {

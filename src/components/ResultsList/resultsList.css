@@ -1,0 +1,11 @@
+
+.person-list {
+    h3 {
+      margin: 0;
+    }
+    p {
+      padding: 0;
+      margin: 5px;
+    }
+  }
+  

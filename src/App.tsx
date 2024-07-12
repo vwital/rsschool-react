@@ -1,19 +1,18 @@
 import { Component, ReactNode } from "react";
-import SearchBar from "./components/SearchBar";
-import ResultList from "./components/ResultsList";
-import ErrorBoundary from "./components/ErrorBoundary";
-import Loader from "./components/Loader";
-import "./App.css";
+import SearchBar from "./components/SearchBar/SearchBar";
+import ResultList from "./components/ResultsList/ResultsList";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import Loader from "./components/Loader/Loader";
 import axios from "axios";
-import { IResult } from "./components/ResultsList";
-import ErrorComponent from "./components/ErrorComponent";
+import { IResult } from "./components/ResultsList/interfaces";
+import ErrorComponent from "@/components/ErrorBoundary/ErrorComponent";
 
-interface State {
+interface IAppState {
   results: IResult[];
   loading: boolean;
   error: string | null;
 }
-class App extends Component<object, State> {
+class App extends Component<object, IAppState> {
   constructor(props: object) {
     super(props);
     this.state = {

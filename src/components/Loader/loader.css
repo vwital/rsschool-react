@@ -25,23 +25,3 @@
     animation: logo-spin infinite 10s linear;
   }
 }
-
-.search-field {
-  display: flex;
-  gap: 30px;
-}
-
-.search-field input {
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.person-list {
-  h3 {
-    margin: 0;
-  }
-  p {
-    padding: 0;
-    margin: 5px;
-  }
-}

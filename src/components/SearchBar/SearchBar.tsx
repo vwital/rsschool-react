@@ -1,4 +1,5 @@
 import { Component, ReactNode } from "react";
+import "./searchBar.css";
 
 interface Props {
   onSearch: (request: string) => void;

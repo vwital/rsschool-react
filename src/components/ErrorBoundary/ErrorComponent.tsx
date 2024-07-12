@@ -1,10 +1,8 @@
 import { Component, ReactNode } from "react";
+import { IErrorBoundaryState } from "./interfaces";
+import config from "./config";
 
-interface IState {
-  shouldThrowError: boolean;
-}
-
-class ErrorComponent extends Component<object, IState> {
+class ErrorComponent extends Component<object, IErrorBoundaryState> {
   constructor(props: object) {
     super(props);
     this.state = { shouldThrowError: false };
@@ -22,7 +20,7 @@ class ErrorComponent extends Component<object, IState> {
     return (
       <div>
         <button className="error-button " onClick={this.throwError}>
-          Throw an error
+          {config.errorButtonText}
         </button>
       </div>
     );
