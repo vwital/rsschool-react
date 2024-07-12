@@ -8,7 +8,7 @@ import { IResult } from "./components/ResultsList/interfaces";
 import ErrorComponent from "@/components/ErrorBoundary/ErrorComponent";
 
 interface IAppState {
-  results: IResult[];
+  results: IResult[] | [];
   loading: boolean;
   error: string | null;
 }
@@ -33,6 +33,7 @@ class App extends Component<object, IAppState> {
       .get(`https://swapi.dev/api/people/?search=${request}`)
       .then((response) => {
         this.setState({ results: response.data.results, loading: false });
+        console.log(response.data.results);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
