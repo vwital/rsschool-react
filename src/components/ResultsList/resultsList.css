@@ -1,11 +1,18 @@
+.results-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+}
 
 .person-list {
-    h3 {
-      margin: 0;
-    }
-    p {
-      padding: 0;
-      margin: 5px;
-    }
+  h3 {
+    margin: 0;
   }
-  
+  p {
+    padding: 0;
+    margin: 5px;
+  }
+  list-style-type: none;
+  border: 3px solid red;
+  border-radius: 10px;
+}

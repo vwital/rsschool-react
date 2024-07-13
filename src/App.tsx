@@ -1,61 +1,46 @@
-import { Component, ReactNode } from "react";
-import SearchBar from "./components/SearchBar/SearchBar";
-import ResultList from "./components/ResultsList/ResultsList";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import Loader from "./components/Loader/Loader";
+import { useState, useEffect } from "react";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import ResultList from "@/components/ResultsList/ResultsList";
+import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
+import Loader from "@/components/Loader/Loader";
 import axios from "axios";
-import { IResult } from "./components/ResultsList/interfaces";
 import ErrorComponent from "@/components/ErrorBoundary/ErrorComponent";
 
-interface IAppState {
-  results: IResult[] | [];
-  loading: boolean;
-  error: string | null;
-}
-class App extends Component<object, IAppState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      results: [],
-      loading: false,
-      error: null,
-    };
-  }
+function App() {
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  componentDidMount() {
+  useEffect(() => {
     const searchRequest = localStorage.getItem("request") || "";
-    this.doSearch(searchRequest);
-  }
+    doSearch(searchRequest);
+  }, []);
 
-  doSearch = (request: string) => {
-    this.setState({ loading: true });
+  const doSearch = (request: string) => {
+    setLoading(true);
     axios
       .get(`https://swapi.dev/api/people/?search=${request}`)
       .then((response) => {
-        this.setState({ results: response.data.results, loading: false });
-        console.log(response.data.results);
+        const searchResults = response.data.results;
+        setResults(searchResults);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
-        this.setState({ error: error.message, loading: false });
+        setLoading(false);
+        setError(error);
       });
   };
 
-  render(): ReactNode {
-    return (
-      <ErrorBoundary>
-        <div className="app">
-          <SearchBar onSearch={this.doSearch} />
-          <ErrorComponent />
-          {this.state.loading ? (
-            <Loader />
-          ) : (
-            <ResultList results={this.state.results} />
-          )}
-        </div>
-      </ErrorBoundary>
-    );
-  }
+  return (
+    <ErrorBoundary>
+      <div className="app">
+        <SearchBar onSearch={doSearch} />
+        <ErrorComponent />
+        {loading && !error ? <Loader /> : <ResultList results={results} />}
+      </div>
+    </ErrorBoundary>
+  );
 }
 
 export default App;

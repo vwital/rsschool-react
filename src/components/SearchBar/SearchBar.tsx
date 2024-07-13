@@ -1,46 +1,36 @@
-import { Component, ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import "./searchBar.css";
 
-interface Props {
+interface IProps {
   onSearch: (request: string) => void;
 }
 
-interface State {
-  request: string;
-}
+function SearchBar(props: IProps): ReactNode {
+  const defaultValue = localStorage.getItem("request") || "";
+  const [value, setValue] = useState(defaultValue);
 
-class SearchBar extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    const requestFromLocalStorage = localStorage.getItem("request") || "";
-    this.state = {
-      request: requestFromLocalStorage,
-    };
-  }
-
-  trackInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ request: e.target.value });
-  };
-
-  handleSearch = () => {
-    const searchRequest = this.state.request.trim();
-    this.props.onSearch(searchRequest);
+  const handleSearch = () => {
+    const searchRequest = value.trim();
     localStorage.setItem("request", searchRequest);
+    props.onSearch(searchRequest);
   };
 
-  render(): ReactNode {
-    return (
-      <div className="search-field">
-        <input
-          type="text"
-          placeholder="Enter your request"
-          value={this.state.request}
-          onChange={this.trackInput}
-        ></input>
-        <button onClick={this.handleSearch}>Search</button>
-      </div>
-    );
-  }
+  return (
+    <div className="search-field">
+      <input
+        type="text"
+        placeholder="Enter your request"
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") handleSearch();
+        }}
+      ></input>
+      <button onClick={handleSearch}>Search</button>
+    </div>
+  );
 }
 
 export default SearchBar;

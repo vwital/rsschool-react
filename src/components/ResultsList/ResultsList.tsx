@@ -20,7 +20,7 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
     </li>
   ));
 
-  return <ul>{resultElements}</ul>;
+  return <ul className="results-list">{resultElements}</ul>;
 }
 
 export default ResultList;

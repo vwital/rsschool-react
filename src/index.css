@@ -3,11 +3,13 @@ body {
   margin: 0 auto;
   place-items: center;
   background-color: #ffffff;
-  color: #0a0a0a;
+  background: url("./assets/background.jpg") no-repeat;
+  color: #ffffff;
 }
 
 #root {
   max-width: 1280px;
+  min-height: 768px;
   padding: 2rem;
   margin: 0 auto;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
