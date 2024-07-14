@@ -24,6 +24,7 @@ function App() {
         const searchResults = response.data.results;
         setResults(searchResults);
         setLoading(false);
+        console.log(searchResults);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);

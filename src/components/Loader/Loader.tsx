@@ -1,8 +1,7 @@
 import reactLogo from "@/assets/react.svg";
-import { ReactNode } from "react";
 import "./loader.css";
 
-function Loader(): ReactNode {
+function Loader() {
   return (
     <>
       <h3>Loading...</h3>
