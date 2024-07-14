@@ -1,5 +1,4 @@
 export interface IResult {
-  id?: string | number;
   name: string;
   rotation_period: string;
   orbital_period: string;
