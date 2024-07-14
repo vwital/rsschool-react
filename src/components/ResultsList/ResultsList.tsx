@@ -18,7 +18,7 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
         <NavLink
           className={"detailed-link"}
           key={result.name}
-          to={`/page/${result.id}/details/${encodeURIComponent(result.name)}`}
+          to={`/page/${result.id}/details/${result.name}`}
         >
           Detailed
         </NavLink>

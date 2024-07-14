@@ -1,8 +1,17 @@
-function useLocalStorage() {
-  const setQuery = (value: string) => localStorage.setItem("request", value);
-  const getQuery = () => localStorage.getItem("request") || "";
+import { useState, useEffect } from "react";
 
-  return [setQuery, getQuery];
+function useLocalStorage(initQuery = " ") {
+  const [query, setQuery] = useState(() => {
+    const ls = localStorage.getItem("request") || initQuery;
+    return ls;
+  });
+  useEffect(() => {
+    return () => {
+      localStorage.setItem("request", query);
+    };
+  }, [query]);
+
+  return [query, setQuery];
 }
 
 export default useLocalStorage;
