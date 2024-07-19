@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import "./searchBar.css";
+import "./index.css";
 
 interface IProps {
   onSearch: (request: string) => void;

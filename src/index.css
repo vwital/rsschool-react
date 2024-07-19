@@ -2,9 +2,8 @@ body {
   display: flex;
   margin: 0 auto;
   place-items: center;
-  background-color: #ffffff;
-  background: url("./assets/background.jpg") no-repeat;
-  color: #ffffff;
+  background-color: #bfaeae;
+  color: #272525;
 }
 
 #root {
@@ -38,6 +37,7 @@ button {
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -58,4 +58,9 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.app {
+  display: flex;
+  gap: 20px;
 }
