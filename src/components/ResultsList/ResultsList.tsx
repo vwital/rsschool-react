@@ -3,12 +3,7 @@ import { NavLink } from "react-router-dom";
 import { IResult } from "./interfaces";
 import "./resultsList.css";
 
-function ResultList({
-  results,
-}: {
-  results: IResult[];
-  page: number;
-}): ReactNode {
+function ResultList({ results }: { results: IResult[] }): ReactNode {
   if (results.length === 0) {
     return <h2>I didn't find anything. Sorry...</h2>;
   }

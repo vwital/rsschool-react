@@ -18,6 +18,9 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     include: ["**/*.test.tsx"],
+    coverage: {
+      exclude: ["./src/main.tsx", ".eslintrc.cjs", "./vite.config.ts"],
+    },
     globals: true,
   },
 });

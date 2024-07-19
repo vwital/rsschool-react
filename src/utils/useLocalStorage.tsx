@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
+type getFn = () => string;
+type setFn = (value: string) => void;
 
-function useLocalStorage(initQuery = " ") {
-  const [query, setQuery] = useState(() => {
-    const ls = localStorage.getItem("request") || initQuery;
-    return ls;
-  });
-  useEffect(() => {
-    return () => {
-      localStorage.setItem("request", query);
-    };
-  }, [query]);
+function useLocalStorage() {
+  const setLocalStorage: setFn = (newValue) =>
+    localStorage.setItem("request", newValue);
 
-  return [query, setQuery];
+  const getLocalStorage: getFn = () => {
+    const item = localStorage.getItem("request");
+    if (item) {
+      return item;
+    }
+    return "";
+  };
+
+  return { setLocalStorage, getLocalStorage };
 }
 
 export default useLocalStorage;

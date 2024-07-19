@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainPage from "@pages/main/MainPage";
+import MainPage from "@pages/Main/MainPage";
 import NotFoundPage from "@pages/404/NotFoundPage.tsx";
 import DetailedPage from "@pages/DetailedPage/DetailedPage";
 import "./index.css";

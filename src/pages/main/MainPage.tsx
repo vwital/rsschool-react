@@ -74,11 +74,7 @@ function MainPage() {
             }}
           />
           <ErrorComponent />
-          {loading && !error ? (
-            <Loader />
-          ) : (
-            <ResultList results={results} page={page} />
-          )}
+          {loading && !error ? <Loader /> : <ResultList results={results} />}
           <div className="pagination-controls">
             <button onClick={handlePrevPage} disabled={page === 1}>
               Prev
