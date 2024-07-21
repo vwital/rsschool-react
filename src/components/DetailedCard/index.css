@@ -4,7 +4,7 @@
   grid-gap: 30px;
 }
 
-.result-element {
+.person-list {
   h3 {
     margin: 0;
   }
@@ -13,11 +13,11 @@
     margin: 5px;
   }
   list-style-type: none;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid red;
   border-radius: 10px;
-  padding: 10px;
 }
 
 .detailed-link {
   color: black;
 }
+

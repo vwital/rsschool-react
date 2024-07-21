@@ -1,5 +1,4 @@
 export interface IResult {
-  id?: string | number;
   name: string;
   rotation_period: string;
   orbital_period: string;
@@ -9,8 +8,4 @@ export interface IResult {
   terrain: string;
   surface_water: string;
   population: string;
-}
-
-export interface IResultProps {
-  results: IResult[];
 }

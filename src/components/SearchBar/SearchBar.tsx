@@ -1,46 +1,39 @@
-import { Component, ReactNode } from "react";
-import "./searchBar.css";
+import { KeyboardEvent, ReactNode, useState } from "react";
+import useLocalStorage from "@utils/useLocalStorage";
+import IProps from "./interfaces";
+import "./index.css";
 
-interface Props {
-  onSearch: (request: string) => void;
-}
+function SearchBar({ onSearch }: IProps): ReactNode {
+  const { setLocalStorage, getLocalStorage } = useLocalStorage();
+  const defaultValue = getLocalStorage() ?? "";
+  const [value, setValue] = useState(defaultValue);
 
-interface State {
-  request: string;
-}
-
-class SearchBar extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    const requestFromLocalStorage = localStorage.getItem("request") || "";
-    this.state = {
-      request: requestFromLocalStorage,
-    };
-  }
-
-  trackInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ request: e.target.value });
+  const handleSearch = () => {
+    const searchRequest = value.trim();
+    setLocalStorage(searchRequest);
+    onSearch(searchRequest);
   };
 
-  handleSearch = () => {
-    const searchRequest = this.state.request.trim();
-    this.props.onSearch(searchRequest);
-    localStorage.setItem("request", searchRequest);
+  const handleEnterPressed = (event: KeyboardEvent) => {
+    if (event.key === "Enter") handleSearch();
   };
 
-  render(): ReactNode {
-    return (
-      <div className="search-field">
-        <input
-          type="text"
-          placeholder="Enter your request"
-          value={this.state.request}
-          onChange={this.trackInput}
-        ></input>
-        <button onClick={this.handleSearch}>Search</button>
-      </div>
-    );
-  }
+  return (
+    <div className="search-field">
+      <input
+        type="text"
+        placeholder="Enter your request"
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+        onKeyDown={(event) => {
+          handleEnterPressed(event);
+        }}
+      ></input>
+      <button onClick={handleSearch}>Search</button>
+    </div>
+  );
 }
 
 export default SearchBar;
