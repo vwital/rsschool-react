@@ -8,7 +8,6 @@ import "./index.css";
 
 function DetailedPage() {
   const { planetId } = useParams();
-  console.log(planetId);
   const [planet, setPlanet] = useState<IResult>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -16,12 +15,13 @@ function DetailedPage() {
     if (planetId) doSearch(planetId);
   }, [planetId]);
 
+  const navigateTo = (val: number) => () => navigate(val);
+
   const doSearch = (request: string) => {
     setLoading(true);
     axios
       .get(`https://swapi.dev/api/planets/?search=${request}`)
       .then((response) => {
-        console.log(response.data.count);
         const searchResults = response.data.results[0];
         setPlanet(searchResults);
         setLoading(false);
@@ -34,10 +34,10 @@ function DetailedPage() {
   return (
     <div className="detailed-page">
       <div className="detailed-info">
-        <button onClick={() => navigate(-1)}>Close</button>
+        <button onClick={navigateTo(-1)}>Close</button>
         {loading ? <Loader /> : <DetailedCard result={planet} />}
       </div>
-      <div className="overlay" onClick={() => navigate(-1)}></div>
+      <div className="overlay" onClick={navigateTo(-1)}></div>
     </div>
   );
 }

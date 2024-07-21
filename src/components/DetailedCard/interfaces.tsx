@@ -9,7 +9,3 @@ export interface IResult {
   surface_water: string;
   population: string;
 }
-
-export interface IResultProps {
-  results: IResult[];
-}

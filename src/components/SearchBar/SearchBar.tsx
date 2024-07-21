@@ -1,18 +1,21 @@
-import { ReactNode, useState } from "react";
+import { KeyboardEvent, ReactNode, useState } from "react";
+import useLocalStorage from "@utils/useLocalStorage";
+import IProps from "./interfaces";
 import "./index.css";
 
-interface IProps {
-  onSearch: (request: string) => void;
-}
-
-function SearchBar(props: IProps): ReactNode {
-  const defaultValue = localStorage.getItem("request") || "";
+function SearchBar({ onSearch }: IProps): ReactNode {
+  const { setLocalStorage, getLocalStorage } = useLocalStorage();
+  const defaultValue = getLocalStorage() ?? "";
   const [value, setValue] = useState(defaultValue);
 
   const handleSearch = () => {
     const searchRequest = value.trim();
-    localStorage.setItem("request", searchRequest);
-    props.onSearch(searchRequest);
+    setLocalStorage(searchRequest);
+    onSearch(searchRequest);
+  };
+
+  const handleEnterPressed = (event: KeyboardEvent) => {
+    if (event.key === "Enter") handleSearch();
   };
 
   return (
@@ -25,7 +28,7 @@ function SearchBar(props: IProps): ReactNode {
           setValue(event.target.value);
         }}
         onKeyDown={(event) => {
-          if (event.key === "Enter") handleSearch();
+          handleEnterPressed(event);
         }}
       ></input>
       <button onClick={handleSearch}>Search</button>

@@ -7,6 +7,7 @@ import Loader from "@/components/Loader/Loader";
 import axios from "axios";
 import ErrorComponent from "@/components/ErrorBoundary/ErrorComponent";
 import "./index.css";
+import useLocalStorage from "@utils/useLocalStorage";
 
 function MainPage() {
   const { page: urlPage } = useParams<{ page: string }>();
@@ -14,18 +15,13 @@ function MainPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(parseInt(urlPage!) || 1);
-  const [query, setQuery] = useState("");
   const [pageLimit, setPageLimit] = useState(1);
+  const { getLocalStorage } = useLocalStorage();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const searchRequest = localStorage.getItem("request") || "";
-    setQuery(searchRequest);
+    const searchRequest = getLocalStorage() ?? "";
     doSearch(searchRequest, page);
-  }, []);
-
-  useEffect(() => {
-    doSearch(query, page);
   }, [page]);
 
   const doSearch = (request: string, pageNumber: number) => {
@@ -37,7 +33,6 @@ function MainPage() {
       )
       .then((response) => {
         const resultsCount = Math.ceil(response.data.count / 10);
-        console.log(response.data.count);
         const searchResults = response.data.results;
         setResults(searchResults);
         setPageLimit(resultsCount);
@@ -68,7 +63,6 @@ function MainPage() {
         <div className="search-section">
           <SearchBar
             onSearch={(searchRequest) => {
-              setQuery(searchRequest);
               setPage(1);
               doSearch(searchRequest, 1);
             }}
