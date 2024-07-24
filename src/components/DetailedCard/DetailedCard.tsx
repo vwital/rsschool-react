@@ -1,4 +1,4 @@
-import "./index.css";
+import "./style.css";
 import { IResult } from "./interfaces";
 
 function DetailedCard({ result }: { result: IResult | undefined }) {

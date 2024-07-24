@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { IResult } from "./interfaces";
-import "./resultsList.css";
+import "./style.css";
 
 function ResultList({ results }: { results: IResult[] }): ReactNode {
   if (results.length === 0) {
