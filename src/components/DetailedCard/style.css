@@ -12,9 +12,9 @@
     padding: 0;
     margin: 5px;
   }
-  list-style-type: none;
-  border: 3px solid red;
+  border: 3px solid #ff0000;
   border-radius: 10px;
+  list-style-type: none;
 }
 
 .detailed-link {
