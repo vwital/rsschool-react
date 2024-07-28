@@ -3,6 +3,7 @@ import MainPage from "@pages/Main/MainPage";
 import NotFoundPage from "@pages/404/NotFoundPage";
 import DetailedPage from "@pages/DetailedPage/DetailedPage";
 import { ThemeProvider } from "@components/Theme/ThemeContext";
+import Flyout from "@components/Flyout/Flyout";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -28,6 +29,7 @@ function App() {
   return (
     <ThemeProvider>
       <RouterProvider router={router} />
+      <Flyout />
     </ThemeProvider>
   );
 }

@@ -21,3 +21,7 @@
 .detailed-link {
   color: black;
 }
+
+.result-element label {
+  display: block;
+}
