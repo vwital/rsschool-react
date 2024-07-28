@@ -5,3 +5,6 @@ export interface ItemState {
   selectedItems: IResult[];
   loading: boolean;
 }
+export interface SelectedItemState {
+  selectedItem: boolean | null;
+}

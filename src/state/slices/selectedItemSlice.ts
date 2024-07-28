@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface SelectedItemState {
-  selectedItem: boolean | null;
-}
+import { SelectedItemState } from "./interfaces";
 
 const initialState: SelectedItemState = {
   selectedItem: null,

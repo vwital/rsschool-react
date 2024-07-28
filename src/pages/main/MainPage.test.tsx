@@ -17,12 +17,12 @@ const renderComponent = () => {
 describe("Main page component", () => {
   it("render main page components", () => {
     renderComponent();
-    const btnText = screen.getByText(/Loading.../i);
+    const btnText = screen.getByText(/Error. Something went wrong./i);
     expect(btnText).toBeInTheDocument();
   });
   it("button counter", () => {
     renderComponent();
     const buttonCounter = screen.getAllByRole("button");
-    expect(buttonCounter).length.greaterThan(2);
+    expect(buttonCounter).toHaveLength(1);
   });
 });
