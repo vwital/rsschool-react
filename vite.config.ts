@@ -12,6 +12,7 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "./src/components"),
       "@utils": path.resolve(__dirname, "./src/utils"),
       "@pages": path.resolve(__dirname, "./src/pages"),
+      "@state": path.resolve(__dirname, "./src/state"),
     },
   },
   plugins: [react()],
@@ -19,7 +20,7 @@ export default defineConfig({
     environment: "jsdom",
     include: ["**/*.test.tsx"],
     coverage: {
-      exclude: ["./src/main.tsx", ".eslintrc.cjs", "./vite.config.ts"],
+      exclude: ["./src/main.tsx", ".eslintrc.cjs", "./vite.config.ts", "dist"],
     },
     globals: true,
   },

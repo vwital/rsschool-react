@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, Outlet } from "react-router-dom";
+import useLocalStorage from "@utils/useLocalStorage";
+import axios from "axios";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import ResultList from "@/components/ResultsList/ResultsList";
 import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
 import Loader from "@/components/Loader/Loader";
-import axios from "axios";
 import ErrorComponent from "@/components/ErrorBoundary/ErrorComponent";
-import "./index.css";
-import useLocalStorage from "@utils/useLocalStorage";
+import BtnThemeMode from "@components/BtnThemeMode/BtnThemeMode";
+import { useTheme } from "@components/Theme/ThemeContext";
+import "./style.css";
 
 function MainPage() {
   const { page: urlPage } = useParams<{ page: string }>();
@@ -18,6 +20,7 @@ function MainPage() {
   const [pageLimit, setPageLimit] = useState(1);
   const { getLocalStorage } = useLocalStorage();
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const searchRequest = getLocalStorage() ?? "";
@@ -59,8 +62,9 @@ function MainPage() {
 
   return (
     <ErrorBoundary>
-      <div className="app">
+      <div className={`app ${theme}`}>
         <div className="search-section">
+          <BtnThemeMode></BtnThemeMode>
           <SearchBar
             onSearch={(searchRequest) => {
               setPage(1);

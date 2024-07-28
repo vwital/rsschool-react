@@ -1,10 +1,10 @@
-import Loader from "@components/Loader/Loader";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import DetailedCard from "@components/DetailedCard/DetailedCard";
 import axios from "axios";
+import DetailedCard from "@components/DetailedCard/DetailedCard";
+import Loader from "@components/Loader/Loader";
 import { IResult } from "@components/ResultsList/interfaces";
-import "./index.css";
+import "./style.css";
 
 function DetailedPage() {
   const { planetId } = useParams();

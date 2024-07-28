@@ -1,10 +1,11 @@
-// import '@testing-library/jest-dom';
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import ResultList from "./ResultsList";
 import { IResult } from "./interfaces";
+import { store } from "@state/store";
+import { Provider } from "react-redux";
 
 const mockData: IResult = {
   name: "string",
@@ -21,9 +22,11 @@ const mockDataArray: IResult[] = Array(5).fill(mockData);
 
 const renderComponent = (data: IResult[]) =>
   render(
-    <BrowserRouter>
-      <ResultList results={data} />;
-    </BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>
+        <ResultList results={data} />;
+      </BrowserRouter>
+    </Provider>,
   );
 
 describe("Results List Component", () => {
