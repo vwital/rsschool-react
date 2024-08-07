@@ -1,5 +1,8 @@
+"use client";
+import "@styles/globals.css";
+
 import { useState, useEffect } from "react";
-import { useNavigate, useParams, Outlet } from "react-router-dom";
+// import { useNavigate, useParams, Outlet } from "react-router-dom";
 import useLocalStorage from "@utils/useLocalStorage";
 import axios from "axios";
 import SearchBar from "@components/SearchBar/SearchBar";
@@ -11,11 +14,12 @@ import BtnThemeMode from "@components/BtnThemeMode/BtnThemeMode";
 import { useTheme } from "@components/Theme/ThemeContext";
 
 function MainPage() {
-  const { page: urlPage } = useParams<{ page: string }>();
+  //   const { page: urlPage } = useParams<{ page: string }>();
+  const [page, setPage] = useState(1);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(parseInt(urlPage!) || 1);
+  //   const [page, setPage] = useState(parseInt(urlPage!) || 1);
   const [pageLimit, setPageLimit] = useState(1);
   const { getLocalStorage } = useLocalStorage();
   // const navigate = useNavigate();
@@ -81,7 +85,7 @@ function MainPage() {
           </div>
         </div>
 
-        <Outlet />
+        {/* <Outlet /> */}
       </div>
     </ErrorBoundary>
   );

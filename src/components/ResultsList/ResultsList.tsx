@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 import { IResult } from "./interfaces";
 import "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,7 +41,7 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
         Select / Unselect
       </label>
       <button>
-        <NavLink to={`${result.name}`}> Detailed</NavLink>
+        <Link href={`${result.name}`}> Detailed</Link>
       </button>
     </li>
   ));
