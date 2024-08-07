@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import { IResult } from "./interfaces";
-import "./style.css";
+import "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { selectItem, unselectItem } from "../../state/slices/itemsSlice";

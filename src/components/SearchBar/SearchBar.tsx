@@ -1,7 +1,7 @@
 import { KeyboardEvent, ReactNode, useState } from "react";
 import useLocalStorage from "@utils/useLocalStorage";
 import IProps from "./interfaces";
-import "./style.css";
+import "./style.module.css";
 
 function SearchBar({ onSearch }: IProps): ReactNode {
   const { setLocalStorage, getLocalStorage } = useLocalStorage();

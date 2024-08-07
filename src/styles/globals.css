@@ -75,3 +75,14 @@ button:focus-visible {
   background-color: #f9f9f9;
   color: #a25b5b;
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.pagination-controls span {
+  font-size: 20px;
+}

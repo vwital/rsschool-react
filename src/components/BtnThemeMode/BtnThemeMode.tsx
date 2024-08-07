@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.module.css";
 import moon from "./moon.svg";
 import sun from "./sun.svg";
 import { useTheme } from "@components/Theme/ThemeContext";

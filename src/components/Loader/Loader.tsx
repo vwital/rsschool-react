@@ -1,5 +1,5 @@
-import reactLogo from "@/assets/react.svg";
-import "./style.css";
+import reactLogo from "./../../../public/react.svg";
+import "./style.module.css";
 
 function Loader() {
   return (
