@@ -1,7 +1,7 @@
 import { KeyboardEvent, ReactNode, useState } from "react";
 import useLocalStorage from "@utils/useLocalStorage";
 import IProps from "./interfaces";
-import "./style.module.css";
+import styles from "./style.module.css";
 
 function SearchBar({ onSearch }: IProps): ReactNode {
   const { setLocalStorage, getLocalStorage } = useLocalStorage();
@@ -19,7 +19,7 @@ function SearchBar({ onSearch }: IProps): ReactNode {
   };
 
   return (
-    <div className="search-field">
+    <div className={styles["search-field"]}>
       <input
         type="text"
         placeholder="Enter your request"

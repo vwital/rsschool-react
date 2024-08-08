@@ -2,7 +2,6 @@
 import "@styles/globals.css";
 
 import { useState, useEffect } from "react";
-// import { useNavigate, useParams, Outlet } from "react-router-dom";
 import useLocalStorage from "@utils/useLocalStorage";
 import axios from "axios";
 import SearchBar from "@components/SearchBar/SearchBar";
@@ -12,17 +11,15 @@ import Loader from "@components/Loader/Loader";
 import ErrorComponent from "@components/ErrorBoundary/ErrorComponent";
 import BtnThemeMode from "@components/BtnThemeMode/BtnThemeMode";
 import { useTheme } from "@components/Theme/ThemeContext";
+import Flyout from "@components/Flyout/Flyout";
 
 function MainPage() {
-  //   const { page: urlPage } = useParams<{ page: string }>();
   const [page, setPage] = useState(1);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  //   const [page, setPage] = useState(parseInt(urlPage!) || 1);
   const [pageLimit, setPageLimit] = useState(1);
   const { getLocalStorage } = useLocalStorage();
-  // const navigate = useNavigate();
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -32,7 +29,6 @@ function MainPage() {
 
   const doSearch = (request: string, pageNumber: number) => {
     setLoading(true);
-    // navigate(`/pages/${pageNumber}`);
     axios
       .get(
         `https://swapi.dev/api/planets/?search=${request}&page=${pageNumber}`,
@@ -84,9 +80,8 @@ function MainPage() {
             <button onClick={handleNextPage}>Next</button>
           </div>
         </div>
-
-        {/* <Outlet /> */}
       </div>
+      <Flyout />
     </ErrorBoundary>
   );
 }

@@ -1,12 +1,13 @@
-import "./style.module.css";
+import styles from "./style.module.css";
+import Image from "next/image";
 import moon from "./moon.svg";
 import sun from "./sun.svg";
 import { useTheme } from "@components/Theme/ThemeContext";
 
 function BtnThemeMode() {
   const { theme, toggleTheme } = useTheme();
-  const btnNormal = "dark-mode-btn";
-  const btnActive = "dark-mode-btn dark-mode-btn--active";
+  const btnNormal = styles["dark-mode-btn"];
+  const btnActive = `${styles["dark-mode-btn"]} ${styles["dark-mode-btn--active"]}`;
 
   return (
     <>
@@ -14,8 +15,12 @@ function BtnThemeMode() {
         onClick={toggleTheme}
         className={theme === "dark" ? btnActive : btnNormal}
       >
-        <img src={sun} alt="sun" className="dark-mode-btn__icon" />
-        <img src={moon} alt="moon" className="dark-mode-btn__icon" />
+        <Image src={sun} alt="sun" className={styles["dark-mode-btn__icon"]} />
+        <Image
+          src={moon}
+          alt="moon"
+          className={styles["dark-mode-btn__icon"]}
+        />
       </button>
     </>
   );

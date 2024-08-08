@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { IResult } from "./interfaces";
-import "./style.module.css";
+import styles from "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { selectItem, unselectItem } from "../../state/slices/itemsSlice";
@@ -25,7 +25,7 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
   };
 
   const resultElements = results.map((result: IResult, index: number) => (
-    <li className="result-element" key={index}>
+    <li className={styles["result-element"]} key={index}>
       <h3>{result.name}</h3>
       <p>Rotation period: {result.rotation_period}</p>
       <p>Orbital period: {result.orbital_period}</p>
@@ -46,7 +46,7 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
     </li>
   ));
 
-  return <ul className="results-list">{resultElements}</ul>;
+  return <ul className={styles["results-list"]}>{resultElements}</ul>;
 }
 
 export default ResultList;
