@@ -1,4 +1,3 @@
-"use client";
 import "@styles/globals.css";
 
 import { useState, useEffect } from "react";
@@ -12,20 +11,37 @@ import ErrorComponent from "@components/ErrorBoundary/ErrorComponent";
 import BtnThemeMode from "@components/BtnThemeMode/BtnThemeMode";
 import { useTheme } from "@components/Theme/ThemeContext";
 import Flyout from "@components/Flyout/Flyout";
+import { useRouter } from "next/router";
+import { IResult } from "@components/ResultsList/interfaces";
+import DetailedCard from "@components/DetailedCard/DetailedCard";
 
 function MainPage() {
-  const [page, setPage] = useState(1);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pageLimit, setPageLimit] = useState(1);
   const { getLocalStorage } = useLocalStorage();
   const { theme } = useTheme();
+  const router = useRouter();
+  const { search: searchParam, page: pageParam, detailed } = router.query;
+  const [page, setPage] = useState(Number(pageParam) || 1);
+  const [searchRequest, setSearchRequest] = useState(
+    searchParam?.toString() || "",
+  );
 
   useEffect(() => {
-    const searchRequest = getLocalStorage() ?? "";
+    const requestFromStorage = getLocalStorage();
+    if (requestFromStorage && !searchParam) {
+      setSearchRequest(requestFromStorage);
+      router.push(`?page=1`, undefined, { scroll: false });
+      console.log("render");
+    }
+  }, []);
+
+  useEffect(() => {
     doSearch(searchRequest, page);
-  }, [page]);
+    console.log("here render");
+  }, [page, searchRequest]);
 
   const doSearch = (request: string, pageNumber: number) => {
     setLoading(true);
@@ -48,28 +64,39 @@ function MainPage() {
       });
   };
 
+  const handleSearch = (newSearchRequest: string) => {
+    setPage(1);
+    setSearchRequest(newSearchRequest);
+    router.push(`?page=1`);
+  };
+
   const handleNextPage = () => {
     if (page + 1 > pageLimit) return;
     if (!loading && !error) {
-      setPage((prevPage) => prevPage + 1);
+      const nextPage = page + 1;
+      router.push(`?page=${nextPage}`);
+      setPage(nextPage);
     }
   };
 
   const handlePrevPage = () => {
-    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
+    if (page > 1) {
+      const prevPage = page - 1;
+      router.push(`?page=${prevPage}`);
+      setPage(prevPage);
+    }
   };
+
+  const selectedPlanet = results.find(
+    (result: IResult) => result.name === detailed,
+  );
 
   return (
     <ErrorBoundary>
       <div className={`app ${theme}`}>
         <div className="search-section">
           <BtnThemeMode></BtnThemeMode>
-          <SearchBar
-            onSearch={(searchRequest) => {
-              setPage(1);
-              doSearch(searchRequest, 1);
-            }}
-          />
+          <SearchBar onSearch={handleSearch} />
           <ErrorComponent />
           {loading && !error ? <Loader /> : <ResultList results={results} />}
           <div className="pagination-controls">
@@ -80,6 +107,15 @@ function MainPage() {
             <button onClick={handleNextPage}>Next</button>
           </div>
         </div>
+
+        {detailed && (
+          <div className="detailed-page">
+            <div className="detailed-info">
+              <DetailedCard result={selectedPlanet} />
+            </div>
+            <div className="overlay"></div>
+          </div>
+        )}
       </div>
       <Flyout />
     </ErrorBoundary>

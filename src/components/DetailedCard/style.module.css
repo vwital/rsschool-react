@@ -1,23 +1,22 @@
-.results-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 30px;
+.detailed-page {
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  margin-top: 200px;
+  position: absolute;
+  z-index: 4;
 }
 
-.person-list {
-  h3 {
-    margin: 0;
-  }
-  p {
-    padding: 0;
-    margin: 5px;
-  }
-  border: 3px solid #ff0000;
-  border-radius: 10px;
-  list-style-type: none;
+.detailed-info {
+  z-index: 5;
 }
 
-.detailed-link {
-  color: black;
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.22);
 }
-

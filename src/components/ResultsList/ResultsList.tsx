@@ -5,12 +5,15 @@ import styles from "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { selectItem, unselectItem } from "../../state/slices/itemsSlice";
+import { useRouter } from "next/router";
 
 function ResultList({ results }: { results: IResult[] }): ReactNode {
   const dispatch = useDispatch();
   const selectedItems = useSelector(
     (state: RootState) => state.items.selectedItems,
   );
+  const router = useRouter();
+  const { query } = router;
 
   if (results.length === 0) {
     return <h2>I didn't find anything. Sorry...</h2>;
@@ -41,7 +44,11 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
         Select / Unselect
       </label>
       <button>
-        <Link href={`${result.name}`}> Detailed</Link>
+        <Link
+          href={{ pathname: "/", query: { ...query, detailed: result.name } }}
+        >
+          Detailed
+        </Link>
       </button>
     </li>
   ));

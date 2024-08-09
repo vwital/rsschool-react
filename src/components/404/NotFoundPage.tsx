@@ -1,10 +1,9 @@
-"use client";
 import Link from "next/link";
-import "./style.css";
+import styles from "./style.module.css";
 
 function NotFoundPage() {
   return (
-    <div className="page-404">
+    <div className={styles["page-404"]}>
       <h1>Page not found</h1>
       <button>
         <Link href="/">Go to the main page</Link>

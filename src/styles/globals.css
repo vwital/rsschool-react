@@ -88,3 +88,26 @@ button:focus-visible {
 .pagination-controls span {
   font-size: 20px;
 }
+
+.detailed-page {
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  margin-top: 200px;
+  transition: all 0.2s ease-in-out;
+}
+
+.detailed-info {
+  z-index: 5;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+  background-color: rgba(218, 163, 44, 0.5);
+  transition: all 0.2s ease-in-out;
+}
