@@ -4,9 +4,9 @@ import "@testing-library/jest-dom";
 import Loader from "./Loader";
 
 describe("Loader component", () => {
-  it("renders loading test and logo", () => {
+  it("renders loading text", () => {
     render(<Loader />);
-    const loadingText = screen.getByText(/Loading.../i);
+    const loadingText = screen.getByText(/Loading/i);
     expect(loadingText).toBeInTheDocument();
   });
 });

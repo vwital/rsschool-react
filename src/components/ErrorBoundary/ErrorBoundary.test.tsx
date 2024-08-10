@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ErrorBoundary from "./ErrorBoundary";
 import ErrorComponent from "./ErrorComponent";
+import { vi } from "vitest";
 
 const ThrowAnError = () => {
   throw new Error("Test error");

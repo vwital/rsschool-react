@@ -1,5 +1,3 @@
-import "@styles/globals.css";
-
 import { useState, useEffect } from "react";
 import useLocalStorage from "@utils/useLocalStorage";
 import axios from "axios";

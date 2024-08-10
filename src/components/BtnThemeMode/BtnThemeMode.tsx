@@ -15,8 +15,16 @@ function BtnThemeMode() {
         onClick={toggleTheme}
         className={theme === "dark" ? btnActive : btnNormal}
       >
-        <Image src={sun} alt="sun" className={styles["dark-mode-btn__icon"]} />
         <Image
+          width={16}
+          height={16}
+          src={sun}
+          alt="sun"
+          className={styles["dark-mode-btn__icon"]}
+        />
+        <Image
+          width={16}
+          height={16}
           src={moon}
           alt="moon"
           className={styles["dark-mode-btn__icon"]}

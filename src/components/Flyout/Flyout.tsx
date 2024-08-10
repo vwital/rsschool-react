@@ -4,7 +4,8 @@ import { clearSelectedItems } from "@state/slices/itemsSlice";
 import { IResult } from "@components/DetailedCard/interfaces";
 import styles from "./style.module.css";
 
-const convertToCSV = (data: IResult[]): string => {
+// eslint-disable-next-line react-refresh/only-export-components
+export const convertToCSV = (data: IResult[]): string => {
   const headers = [
     "Name",
     "Rotation Period",

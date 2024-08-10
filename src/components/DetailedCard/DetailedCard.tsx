@@ -1,6 +1,5 @@
 import { IResult } from "./interfaces";
 import { useRouter } from "next/router";
-import styles from "./style.module.css";
 function DetailedCard({ result }: { result: IResult | undefined }) {
   const router = useRouter();
   if (!result) {

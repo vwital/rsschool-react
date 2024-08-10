@@ -8,7 +8,13 @@ function Loader() {
   return (
     <>
       <h3>Loading...</h3>
-      <Image src={reactLogo} className={logoStyle} alt="React logo" />
+      <Image
+        width={300}
+        height={300}
+        src={reactLogo}
+        className={logoStyle}
+        alt="React logo"
+      />
     </>
   );
 }
