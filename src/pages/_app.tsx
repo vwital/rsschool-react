@@ -1,4 +1,3 @@
-"use client";
 import "@styles/globals.css";
 import { ThemeProvider } from "@components/Theme/ThemeContext";
 import { store } from "@state/store";
