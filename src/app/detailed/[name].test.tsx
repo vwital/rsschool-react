@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { useRouter } from "next/router";
 import { describe, it, expect, vi } from "vitest";
 import "@testing-library/jest-dom";
-import DetailedPage from "./[name]";
+import DetailedPage from "../../pages/detailed/[name]";
 
 vi.mock("next/router", () => ({
   useRouter: vi.fn(),

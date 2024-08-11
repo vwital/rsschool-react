@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DetailedCard from "@components/DetailedCard/DetailedCard";
@@ -8,7 +8,8 @@ import styles from "./style.module.css";
 
 function DetailedPage() {
   const router = useRouter();
-  const { name } = router.query;
+  const searchParams = useSearchParams();
+  const name = searchParams?.get("name");
   const [planet, setPlanet] = useState<IResult | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 

@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import useLocalStorage from "@utils/useLocalStorage";
 import axios from "axios";
@@ -9,7 +10,7 @@ import ErrorComponent from "@components/ErrorBoundary/ErrorComponent";
 import BtnThemeMode from "@components/BtnThemeMode/BtnThemeMode";
 import { useTheme } from "@components/Theme/ThemeContext";
 import Flyout from "@components/Flyout/Flyout";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IResult } from "@components/ResultsList/interfaces";
 import DetailedCard from "@components/DetailedCard/DetailedCard";
 
@@ -21,7 +22,12 @@ function MainPage() {
   const { getLocalStorage } = useLocalStorage();
   const { theme } = useTheme();
   const router = useRouter();
-  const { search: searchParam, page: pageParam, detailed } = router.query;
+  const searchParams = useSearchParams();
+
+  const searchParam = searchParams?.get("search");
+  const pageParam = searchParams?.get("page");
+  const detailed = searchParams?.get("detailed");
+
   const [page, setPage] = useState(Number(pageParam) || 1);
   const [searchRequest, setSearchRequest] = useState(
     searchParam?.toString() || "",
@@ -31,7 +37,7 @@ function MainPage() {
     const requestFromStorage = getLocalStorage();
     if (requestFromStorage && !searchParam) {
       setSearchRequest(requestFromStorage);
-      router.push(`?page=1`, undefined, { scroll: false });
+      router.push(`?page=1`, { scroll: false });
       console.log("render");
     }
   }, []);
