@@ -1,15 +1,17 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import ResultList from "./ResultsList";
 import { IResult } from "./interfaces";
-import { store } from "@state/store";
 import { Provider } from "react-redux";
+import { store } from "@state/store";
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => ({
     back: vi.fn(),
+  }),
+  useSearchParams: () => ({
+    get: vi.fn(),
   }),
 }));
 
@@ -24,27 +26,26 @@ const mockData: IResult = {
   surface_water: "string",
   population: "string",
 };
+
 const mockDataArray: IResult[] = Array(5).fill(mockData);
 
 const renderComponent = (data: IResult[]) =>
   render(
     <Provider store={store}>
-      <BrowserRouter>
-        <ResultList results={data} />;
-      </BrowserRouter>
+      <ResultList results={data} />
     </Provider>,
   );
 
 describe("Results List Component", () => {
-  it(" render the exact number of components", () => {
+  it("renders the exact number of components", () => {
     renderComponent(mockDataArray);
-    const searchedElements = screen.getAllByRole("listitem");
-    const listElem = screen.getByRole("list");
-    expect(searchedElements).toHaveLength(5);
-    expect(listElem).toBeInTheDocument();
+    const listItems = screen.getAllByRole("listitem");
+    const list = screen.getByRole("list");
+    expect(listItems).toHaveLength(5);
+    expect(list).toBeInTheDocument();
   });
 
-  it("render error message if data is empty ", () => {
+  it("renders error message if data is empty", () => {
     renderComponent([]);
     const messageText = screen.getByText(/I didn't find anything. Sorry.../i);
     expect(messageText).toBeInTheDocument();

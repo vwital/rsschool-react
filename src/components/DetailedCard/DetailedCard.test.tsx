@@ -4,9 +4,12 @@ import "@testing-library/jest-dom";
 import DetailedCard from "./DetailedCard";
 import { IResult } from "./interfaces";
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: () => ({
     back: vi.fn(),
+  }),
+  useSearchParams: () => ({
+    get: vi.fn(),
   }),
 }));
 
