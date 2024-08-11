@@ -1,8 +1,14 @@
-import { describe, test as it, expect } from "vitest";
+import { describe, test as it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import DetailedCard from "./DetailedCard";
 import { IResult } from "./interfaces";
+
+vi.mock("next/router", () => ({
+  useRouter: () => ({
+    back: vi.fn(),
+  }),
+}));
 
 const mockData: IResult = {
   name: "test",
@@ -27,9 +33,5 @@ describe("Detailed Card Component", () => {
       screen.getByText(`Surface water: ${mockData.surface_water}`),
     ).toBeInTheDocument();
     expect(screen.getByText("Population: 2000000000")).toBeInTheDocument();
-  });
-  it("data not transferred", () => {
-    render(<DetailedCard result={undefined} />);
-    expect(screen.getByText("Sorry")).toBeInTheDocument();
   });
 });

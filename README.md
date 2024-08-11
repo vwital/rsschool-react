@@ -1,3 +1,3 @@
-# React project setup. Class components. Error boundary.
+# Next.js. Server Side Rendering
 
-[Task Link](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/class-components.md)
+[Task Link](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/nextjs-ssr-ssg.md)

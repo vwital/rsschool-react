@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
@@ -6,6 +6,12 @@ import ResultList from "./ResultsList";
 import { IResult } from "./interfaces";
 import { store } from "@state/store";
 import { Provider } from "react-redux";
+
+vi.mock("next/router", () => ({
+  useRouter: () => ({
+    back: vi.fn(),
+  }),
+}));
 
 const mockData: IResult = {
   name: "string",

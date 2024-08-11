@@ -2,9 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@state/store";
 import { clearSelectedItems } from "@state/slices/itemsSlice";
 import { IResult } from "@components/DetailedCard/interfaces";
-import "./style.css";
+import styles from "./style.module.css";
 
-const convertToCSV = (data: IResult[]): string => {
+// eslint-disable-next-line react-refresh/only-export-components
+export const convertToCSV = (data: IResult[]): string => {
   const headers = [
     "Name",
     "Rotation Period",
@@ -49,7 +50,7 @@ function Flyout() {
   };
 
   return (
-    <div className="flyout">
+    <div className={styles.flyout}>
       <p>{selectedItems.length} items selected</p>
       <button onClick={handleUnselectAll}>Unselect all</button>
       <button>

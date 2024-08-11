@@ -4,10 +4,10 @@ body {
   place-items: center;
 }
 
-#root {
+#__next {
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -47,6 +47,8 @@ button:focus-visible {
 .app {
   display: flex;
   gap: 20px;
+  width: 100%;
+  justify-content: center;
 }
 
 .light {
@@ -74,4 +76,38 @@ button:focus-visible {
 .dark input {
   background-color: #f9f9f9;
   color: #a25b5b;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.pagination-controls span {
+  font-size: 20px;
+}
+
+.detailed-page {
+  display: flex;
+  width: 40%;
+  justify-content: center;
+  margin-top: 200px;
+  transition: all 0.2s ease-in-out;
+}
+
+.detailed-info {
+  z-index: 5;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+  background-color: rgba(218, 163, 44, 0.5);
+  transition: all 0.2s ease-in-out;
 }

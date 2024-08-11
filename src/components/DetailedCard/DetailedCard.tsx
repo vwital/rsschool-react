@@ -1,13 +1,14 @@
-import "./style.css";
 import { IResult } from "./interfaces";
-
+import { useRouter } from "next/router";
 function DetailedCard({ result }: { result: IResult | undefined }) {
+  const router = useRouter();
   if (!result) {
     return <h2>Sorry</h2>;
   }
 
   return (
     <div className="detailed-list">
+      <button onClick={() => router.back()}>Close</button>
       <h3>{result.name}</h3>
       <p>Rotation period: {result.rotation_period}</p>
       <p>Orbital period: {result.orbital_period}</p>

@@ -1,35 +1,48 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams, Outlet } from "react-router-dom";
 import useLocalStorage from "@utils/useLocalStorage";
 import axios from "axios";
-import SearchBar from "@/components/SearchBar/SearchBar";
-import ResultList from "@/components/ResultsList/ResultsList";
-import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
-import Loader from "@/components/Loader/Loader";
-import ErrorComponent from "@/components/ErrorBoundary/ErrorComponent";
+import SearchBar from "@components/SearchBar/SearchBar";
+import ResultList from "@components/ResultsList/ResultsList";
+import ErrorBoundary from "@components/ErrorBoundary/ErrorBoundary";
+import Loader from "@components/Loader/Loader";
+import ErrorComponent from "@components/ErrorBoundary/ErrorComponent";
 import BtnThemeMode from "@components/BtnThemeMode/BtnThemeMode";
 import { useTheme } from "@components/Theme/ThemeContext";
-import "./style.css";
+import Flyout from "@components/Flyout/Flyout";
+import { useRouter } from "next/router";
+import { IResult } from "@components/ResultsList/interfaces";
+import DetailedCard from "@components/DetailedCard/DetailedCard";
 
 function MainPage() {
-  const { page: urlPage } = useParams<{ page: string }>();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(parseInt(urlPage!) || 1);
   const [pageLimit, setPageLimit] = useState(1);
   const { getLocalStorage } = useLocalStorage();
-  const navigate = useNavigate();
   const { theme } = useTheme();
+  const router = useRouter();
+  const { search: searchParam, page: pageParam, detailed } = router.query;
+  const [page, setPage] = useState(Number(pageParam) || 1);
+  const [searchRequest, setSearchRequest] = useState(
+    searchParam?.toString() || "",
+  );
 
   useEffect(() => {
-    const searchRequest = getLocalStorage() ?? "";
+    const requestFromStorage = getLocalStorage();
+    if (requestFromStorage && !searchParam) {
+      setSearchRequest(requestFromStorage);
+      router.push(`?page=1`, undefined, { scroll: false });
+      console.log("render");
+    }
+  }, []);
+
+  useEffect(() => {
     doSearch(searchRequest, page);
-  }, [page]);
+    console.log("here render");
+  }, [page, searchRequest]);
 
   const doSearch = (request: string, pageNumber: number) => {
     setLoading(true);
-    navigate(`/pages/${pageNumber}`);
     axios
       .get(
         `https://swapi.dev/api/planets/?search=${request}&page=${pageNumber}`,
@@ -49,28 +62,39 @@ function MainPage() {
       });
   };
 
+  const handleSearch = (newSearchRequest: string) => {
+    setPage(1);
+    setSearchRequest(newSearchRequest);
+    router.push(`?page=1`);
+  };
+
   const handleNextPage = () => {
     if (page + 1 > pageLimit) return;
     if (!loading && !error) {
-      setPage((prevPage) => prevPage + 1);
+      const nextPage = page + 1;
+      router.push(`?page=${nextPage}`);
+      setPage(nextPage);
     }
   };
 
   const handlePrevPage = () => {
-    setPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
+    if (page > 1) {
+      const prevPage = page - 1;
+      router.push(`?page=${prevPage}`);
+      setPage(prevPage);
+    }
   };
+
+  const selectedPlanet = results.find(
+    (result: IResult) => result.name === detailed,
+  );
 
   return (
     <ErrorBoundary>
       <div className={`app ${theme}`}>
         <div className="search-section">
           <BtnThemeMode></BtnThemeMode>
-          <SearchBar
-            onSearch={(searchRequest) => {
-              setPage(1);
-              doSearch(searchRequest, 1);
-            }}
-          />
+          <SearchBar onSearch={handleSearch} />
           <ErrorComponent />
           {loading && !error ? <Loader /> : <ResultList results={results} />}
           <div className="pagination-controls">
@@ -82,8 +106,16 @@ function MainPage() {
           </div>
         </div>
 
-        <Outlet />
+        {detailed && (
+          <div className="detailed-page">
+            <div className="detailed-info">
+              <DetailedCard result={selectedPlanet} />
+            </div>
+            <div className="overlay"></div>
+          </div>
+        )}
       </div>
+      <Flyout />
     </ErrorBoundary>
   );
 }
