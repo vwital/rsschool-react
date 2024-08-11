@@ -1,5 +1,7 @@
+"use client";
+
 import { IResult } from "./interfaces";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 function DetailedCard({ result }: { result: IResult | undefined }) {
   const router = useRouter();
   if (!result) {

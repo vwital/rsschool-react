@@ -1,11 +1,16 @@
+"use client";
+
 import { ReactNode } from "react";
-import Link from "next/link";
 import { IResult } from "./interfaces";
 import styles from "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { selectItem, unselectItem } from "../../state/slices/itemsSlice";
-import { useRouter } from "next/router";
+import {
+  ReadonlyURLSearchParams,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 
 function ResultList({ results }: { results: IResult[] }): ReactNode {
   const dispatch = useDispatch();
@@ -13,7 +18,7 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
     (state: RootState) => state.items.selectedItems,
   );
   const router = useRouter();
-  const { query } = router;
+  const searchParams = useSearchParams();
 
   if (results.length === 0) {
     return <h2>I didn't find anything. Sorry...</h2>;
@@ -25,6 +30,12 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
     } else {
       dispatch(selectItem(item));
     }
+  };
+
+  const handleDetailClick = (name: string) => {
+    const params = new URLSearchParams(searchParams as ReadonlyURLSearchParams);
+    params.set("detailed", name);
+    router.push(`/?${params.toString()}`);
   };
 
   const resultElements = results.map((result: IResult, index: number) => (
@@ -43,13 +54,7 @@ function ResultList({ results }: { results: IResult[] }): ReactNode {
         />
         Select / Unselect
       </label>
-      <button>
-        <Link
-          href={{ pathname: "/", query: { ...query, detailed: result.name } }}
-        >
-          Detailed
-        </Link>
-      </button>
+      <button onClick={() => handleDetailClick(result.name)}>Detailed</button>
     </li>
   ));
 

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import useLocalStorage from "@utils/useLocalStorage";
 import axios from "axios";
@@ -11,11 +12,11 @@ import BtnThemeMode from "@components/BtnThemeMode/BtnThemeMode";
 import { useTheme } from "@components/Theme/ThemeContext";
 import Flyout from "@components/Flyout/Flyout";
 import { useRouter, useSearchParams } from "next/navigation";
-import { IResult } from "@components/ResultsList/interfaces";
 import DetailedCard from "@components/DetailedCard/DetailedCard";
+import { IResult } from "@components/ResultsList/interfaces";
 
 function MainPage() {
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<IResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pageLimit, setPageLimit] = useState(1);
@@ -35,17 +36,15 @@ function MainPage() {
 
   useEffect(() => {
     const requestFromStorage = getLocalStorage();
+
     if (requestFromStorage && !searchParam) {
       setSearchRequest(requestFromStorage);
-      router.push(`?page=1`, { scroll: false });
-      console.log("render");
+      router.push(`/?page=1`, { scroll: false });
+      doSearch(requestFromStorage, 1);
+    } else {
+      doSearch(searchRequest, page);
     }
-  }, []);
-
-  useEffect(() => {
-    doSearch(searchRequest, page);
-    console.log("here render");
-  }, [page, searchRequest]);
+  }, [searchParam, page]);
 
   const doSearch = (request: string, pageNumber: number) => {
     setLoading(true);
@@ -55,14 +54,12 @@ function MainPage() {
       )
       .then((response) => {
         const resultsCount = Math.ceil(response.data.count / 10);
-        const searchResults = response.data.results;
-        setResults(searchResults);
+        setResults(response.data.results);
         setPageLimit(resultsCount);
         setError(null);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching data: ", error);
         setLoading(false);
         setError(error);
       });
@@ -71,22 +68,21 @@ function MainPage() {
   const handleSearch = (newSearchRequest: string) => {
     setPage(1);
     setSearchRequest(newSearchRequest);
-    router.push(`?page=1`);
+    doSearch(newSearchRequest, 1);
+    router.push(`/?page=1`);
   };
 
   const handleNextPage = () => {
     if (page + 1 > pageLimit) return;
-    if (!loading && !error) {
-      const nextPage = page + 1;
-      router.push(`?page=${nextPage}`);
-      setPage(nextPage);
-    }
+    const nextPage = page + 1;
+    router.push(`/?page=${nextPage}`);
+    setPage(nextPage);
   };
 
   const handlePrevPage = () => {
     if (page > 1) {
       const prevPage = page - 1;
-      router.push(`?page=${prevPage}`);
+      router.push(`/?page=${prevPage}`);
       setPage(prevPage);
     }
   };
@@ -99,7 +95,7 @@ function MainPage() {
     <ErrorBoundary>
       <div className={`app ${theme}`}>
         <div className="search-section">
-          <BtnThemeMode></BtnThemeMode>
+          <BtnThemeMode />
           <SearchBar onSearch={handleSearch} />
           <ErrorComponent />
           {loading && !error ? <Loader /> : <ResultList results={results} />}
