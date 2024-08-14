@@ -8,7 +8,8 @@
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "format:fix": "prettier . --write"
+        "format:fix": "prettier . --write",
+        "prepare": "cd .. && husky forms/.husky"
     },
     "dependencies": {
         "react": "^18.3.1",
@@ -16,7 +17,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-commit": "npm run lint"
         }
     },
     "lint-staged": {
