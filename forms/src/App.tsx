@@ -1,4 +1,5 @@
 import reactLogo from './assets/react.svg';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -11,11 +12,11 @@ function App() {
             <div className="forms-store">
                 <div className="card">
                     <h2>Form 1</h2>
-                    <a href="/uncontrolled-form">Uncontrolled </a>
+                    <Link to="/uncontrolled-form">Uncontrolled </Link>
                 </div>
                 <div className="card">
                     <h2>React Hook Form</h2>
-                    <a href="/react-form">React Hook Form </a>
+                    <Link to="/react-form">React Hook Form </Link>
                 </div>
             </div>
         </>

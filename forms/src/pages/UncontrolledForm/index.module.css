@@ -1,0 +1,17 @@
+.uncontrolled-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.uncontrolled-form input,
+select {
+    margin-left: 10px;
+}
+
+.password-complexity {
+    display: none;
+    width: 100%;
+    height: 2px;
+}

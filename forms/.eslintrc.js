@@ -14,7 +14,7 @@ module.exports = {
     extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
     plugins: ['react', 'react-hooks', '@typescript-eslint'],
     rules: {
-        // Define your custom ESLint rules here, if needed.
+        '@typescript-eslint/no-explicit-any': 'error',
     },
     settings: {
         react: {
