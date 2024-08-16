@@ -1,11 +1,21 @@
 import * as yup from 'yup';
 
-const regexpEmail = new RegExp(/^\S+@\S+\.S+$/);
+const regexpEmail = new RegExp(
+    /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i
+);
 const MAX_IMG_SIZE = 307200;
 
 const userSchema = yup.object().shape({
-    name: yup.string().required('Required field').uppercase('The name must start with a capital letter'),
-    age: yup.number().typeError('Age must be an integer number').required('Required field').positive('Age should be a positive number'),
+    name: yup
+        .string()
+        .required('Required field')
+        .matches(/^[A-Z]/, 'The name must start with a capital letter'),
+    age: yup
+        .number()
+        .typeError('Age must be an integer number')
+        .integer('Age must be an integer number')
+        .required('Required field')
+        .positive('Age should be a positive number'),
     email: yup.string().required('Required field').matches(regexpEmail, 'Incorrect email format'),
     password: yup
         .string()
@@ -13,13 +23,13 @@ const userSchema = yup.object().shape({
         .matches(/[0-9]/, 'Password must contain at least 1 digit')
         .matches(/[A-Z]/, 'Password must contain at least 1 capital letter')
         .matches(/[a-z]/, 'Password must contain at least 1 lowercase letter')
-        .matches(/!"#$%&'()*\+,-\/:;<=>?@[\\]^_`{|}/g, 'Password must contain at least 1 special character'),
+        .matches(/[!"#$%&]/, 'Password must contain at least 1 special character'),
     confirmPassword: yup
         .string()
-        .required('')
+        .required('Required field')
         .oneOf([yup.ref('password')], 'Passwords must match'),
     gender: yup.string().required('Required field'),
-    conditions: yup.string().required('Required field'),
+    conditions: yup.bool().required('Required field').oneOf([true], 'You must accept the terms and conditions'),
     img: yup
         .mixed()
         .required('Required field')
