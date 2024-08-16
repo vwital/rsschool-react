@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import userSchema from '../../utils/shema';
+import userSchema from '../../utils/schema';
 import * as yup from 'yup';
 import { IErrors } from './interfaces';
 import styles from './index.module.css';
