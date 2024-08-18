@@ -1,16 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface IFormState {
-    name: string | undefined;
-    age: number;
-    email: string | undefined;
-    password: string | undefined;
-    confirmPassword: string | undefined;
-    gender: string | undefined;
-    conditions: boolean | undefined;
-    img: File | undefined | unknown;
-    country: string | undefined;
-}
+import { IFormState } from '../../utils/interfaces';
 
 const initialState: IFormState[] = [];
 
@@ -27,4 +16,4 @@ const formSlice = createSlice({
 export const { addForm } = formSlice.actions;
 export default formSlice.reducer;
 
-export const selectCountries = (state: { country: string[] }) => state.country;
+export const selectForms = (state: { form: IFormState[] }) => state.form;

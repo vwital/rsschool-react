@@ -7,6 +7,7 @@ import convertToBase64 from '../../utils/convertImg';
 import { addForm } from '../../state/slices/formSlice';
 import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function UncontrolledForm() {
     const [errors, setErrors] = useState<IErrors>({});
@@ -21,7 +22,7 @@ function UncontrolledForm() {
     const countryRef = useRef<HTMLInputElement>(null);
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const submitHandler = async () => {
         const formValues = {
             name: nameRef.current?.value,
@@ -46,6 +47,7 @@ function UncontrolledForm() {
                 const sendingForm = { ...formValues, img: res };
                 dispatch(addForm(sendingForm));
                 setErrors({});
+                navigate('/');
             })
             .catch((errors) => {
                 if (errors instanceof yup.ValidationError) {
