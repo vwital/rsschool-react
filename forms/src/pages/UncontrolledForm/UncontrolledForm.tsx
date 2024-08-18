@@ -25,7 +25,8 @@ function UncontrolledForm() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const submitHandler = async () => {
+    const submitHandler = async (e: React.FormEvent) => {
+        e.preventDefault();
         const formValues = {
             name: nameRef.current?.value,
             age: Number(ageRef.current?.value),
@@ -72,69 +73,69 @@ function UncontrolledForm() {
     };
 
     return (
-        <div className={styles['uncontrolled-form']}>
+        <div>
             <h1>Uncontrolled Form</h1>
-            <label htmlFor="name">
-                Name
-                <input ref={nameRef} id="name" name="name" type="text" placeholder="First uppercased letter" required></input>
-            </label>
-            {errors.name && <p className={styles['validation-error']}>{errors.name}</p>}
-            <label htmlFor="ahe">
-                Age
-                <input ref={ageRef} id="age" name="age" type="text"></input>
-                {errors.age && <p className={styles['validation-error']}>{errors.age}</p>}
-            </label>
-            <label htmlFor="email">
-                Email
-                <input ref={emailRef} id="email" name="email" type="email"></input>
-            </label>
-            {errors.email && <p className={styles['validation-error']}>{errors.email}</p>}
-            <label htmlFor="password">
-                Password
-                <input ref={passwordRef} id="password" name="password" type="password" onChange={handlePasswordInput}></input>
-                <div className={styles['password-complexity']}>
-                    <p className={styles['password-complexity-text']}>{passwordStrength}</p>
-                    <div
-                        className={`${styles['password-complexity-bar']} ${passwordStrength === 'Weak' ? styles.weak : passwordStrength === 'Good' ? styles.good : passwordStrength === 'Strong' ? styles.strong : passwordStrength === 'Super strong' ? styles['super-strong'] : styles.none}`}
-                    ></div>
-                </div>
-                {errors.password && <p className={styles['validation-error']}>{errors.password}</p>}
-            </label>
-            <label htmlFor="confPassword">
-                Confirm password
-                <input ref={confirmPasswordRef} id="confPassword" name="confPassword" type="password"></input>
-            </label>
-            {errors.confirmPassword && <p className={styles['validation-error']}>{errors.confirmPassword}</p>}
-            <label htmlFor="gender">
-                Gender
-                <select ref={genderRef} name="gender" id="gender">
-                    <option value="">Select...</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Mechanic">Mechanic</option>
-                </select>
-            </label>
-            {errors.gender && <p className={styles['validation-error']}>{errors.gender}</p>}
-            <label htmlFor="conditions">
-                {' '}
-                Accept Terms and Conditions
-                <input ref={conditionsRef} id="conditions" name="conditions" type="checkbox" />
-            </label>
-            {errors.conditions && <p className={styles['validation-error']}>{errors.conditions}</p>}
-            <label htmlFor="img">
-                {' '}
-                Your super picture
-                <input ref={imgRef} id="img" name="img" type="file" />
-            </label>
-            {errors.img && <p className={styles['validation-error']}>{errors.img}</p>}
-            <label htmlFor="country">
-                Country
-                <CountryForm reference={countryRef} />
-            </label>
-            {errors.country && <p className={styles['validation-error']}>{errors.country}</p>}
-            <button type="submit" onClick={submitHandler}>
-                Submit
-            </button>
+            <form className={styles['uncontrolled-form']} onSubmit={submitHandler}>
+                <label htmlFor="name">
+                    Name
+                    <input ref={nameRef} id="name" name="name" type="text" placeholder="First uppercased letter" required></input>
+                </label>
+                {errors.name && <p className={styles['validation-error']}>{errors.name}</p>}
+                <label htmlFor="ahe">
+                    Age
+                    <input ref={ageRef} id="age" name="age" type="text"></input>
+                    {errors.age && <p className={styles['validation-error']}>{errors.age}</p>}
+                </label>
+                <label htmlFor="email">
+                    Email
+                    <input ref={emailRef} id="email" name="email" type="email"></input>
+                </label>
+                {errors.email && <p className={styles['validation-error']}>{errors.email}</p>}
+                <label htmlFor="password">
+                    Password
+                    <input ref={passwordRef} id="password" name="password" type="password" onChange={handlePasswordInput}></input>
+                    <div className={styles['password-complexity']}>
+                        <p className={styles['password-complexity-text']}>{passwordStrength}</p>
+                        <div
+                            className={`${styles['password-complexity-bar']} ${passwordStrength === 'Weak' ? styles.weak : passwordStrength === 'Good' ? styles.good : passwordStrength === 'Strong' ? styles.strong : passwordStrength === 'Super strong' ? styles['super-strong'] : styles.none}`}
+                        ></div>
+                    </div>
+                    {errors.password && <p className={styles['validation-error']}>{errors.password}</p>}
+                </label>
+                <label htmlFor="confPassword">
+                    Confirm password
+                    <input ref={confirmPasswordRef} id="confPassword" name="confPassword" type="password"></input>
+                </label>
+                {errors.confirmPassword && <p className={styles['validation-error']}>{errors.confirmPassword}</p>}
+                <label htmlFor="gender">
+                    Gender
+                    <select ref={genderRef} name="gender" id="gender">
+                        <option value="">Select...</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Mechanic">Mechanic</option>
+                    </select>
+                </label>
+                {errors.gender && <p className={styles['validation-error']}>{errors.gender}</p>}
+                <label htmlFor="conditions">
+                    {' '}
+                    Accept Terms and Conditions
+                    <input ref={conditionsRef} id="conditions" name="conditions" type="checkbox" />
+                </label>
+                {errors.conditions && <p className={styles['validation-error']}>{errors.conditions}</p>}
+                <label htmlFor="img">
+                    {' '}
+                    Your super picture
+                    <input ref={imgRef} id="img" name="img" type="file" />
+                </label>
+                {errors.img && <p className={styles['validation-error']}>{errors.img}</p>}
+                <label htmlFor="country">
+                    Country
+                    <CountryForm reference={countryRef} />
+                </label>
+                {errors.country && <p className={styles['validation-error']}>{errors.country}</p>}
+                <button type="submit">Submit</button>
+            </form>
         </div>
     );
 }

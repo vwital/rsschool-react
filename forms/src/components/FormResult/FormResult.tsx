@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { IFormState } from '../../utils/interfaces';
 import styles from './index.module.css';
 

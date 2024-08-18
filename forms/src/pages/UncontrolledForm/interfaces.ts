@@ -11,13 +11,13 @@ export interface IErrors {
 }
 
 export interface IForm {
-    name: string | undefined;
+    name: string;
     age: number;
-    email: string | undefined;
-    password: string | undefined;
-    confirmPassword: string | undefined;
-    gender: string | undefined;
-    conditions: boolean | undefined;
-    img: File | undefined | unknown;
-    country: string | undefined;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    gender: string;
+    conditions: boolean;
+    img: File | undefined;
+    country: string;
 }

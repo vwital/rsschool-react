@@ -30,7 +30,7 @@ const userSchema = yup.object().shape({
         .required('Required field')
         .oneOf([yup.ref('password')], 'Passwords must match'),
     gender: yup.string().required('Required field'),
-
+    conditions: yup.boolean(),
     img: yup
         .mixed()
         .required('Required field')

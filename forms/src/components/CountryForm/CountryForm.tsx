@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { selectCountries } from '../../state/slices/countrySlice';
 
-const CountryForm = ({ reference }: { reference: RefObject<HTMLInputElement> }) => {
+interface CountryFormProps {
+    reference?: RefObject<HTMLInputElement>;
+}
+
+const CountryForm = ({ reference }: CountryFormProps) => {
     const allCountries = useSelector(selectCountries);
     const [suggestions, setSuggestions] = useState<string[]>(allCountries);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

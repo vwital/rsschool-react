@@ -1,0 +1,62 @@
+.react-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.uncontrolled-form input,
+select {
+    margin-left: 10px;
+}
+
+.password-complexity {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.password-complexity-text {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.password-complexity-bar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.password-complexity-bar.none {
+    width: 0%;
+    background-color: red;
+}
+
+.password-complexity-bar.weak {
+    width: 25%;
+    background-color: red;
+}
+
+.password-complexity-bar.good {
+    width: 50%;
+    background-color: yellow;
+}
+
+.password-complexity-bar.strong {
+    width: 75%;
+    background-color: orange;
+}
+
+.password-complexity-bar.super-strong {
+    width: 100%;
+    background-color: green;
+}
+
+.validation-error {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    padding: 2px;
+    color: red;
+}

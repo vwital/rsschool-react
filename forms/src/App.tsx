@@ -41,12 +41,12 @@ function App() {
             <h1>React forms.</h1>
             <div className="forms-store">
                 <div className="card">
-                    <h2>Form 1</h2>
+                    <h2>Uncontrolled form</h2>
                     <Link to="/uncontrolled-form">Uncontrolled </Link>
                 </div>
                 <div className="card">
                     <h2>React Hook Form</h2>
-                    <Link to="/react-form">React Hook Form </Link>
+                    <Link to="/react-hook-form">React Hook Form </Link>
                 </div>
             </div>
             <div className="form-results">
