@@ -1,11 +1,11 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import userSchema from '../../utils/schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CountryForm from '../../components/CountryForm/CountryForm';
 import convertToBase64 from '../../utils/convertImg';
 import { addForm } from '../../state/slices/formSlice';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import passwordComplexity from '../../utils/passwordComplexity';
 import { InferType } from 'yup';
@@ -138,9 +138,22 @@ function ReactHookForm() {
                 {errors.img && <p className={styles['validation-error']}>{errors.img.message}</p>}
                 <label htmlFor="country">
                     Country
-                    <Controller name="country" control={control} render={({ field }) => <CountryForm reference={undefined} {...field} />} />
+                    <Controller
+                        name="country"
+                        control={control}
+                        render={({ field }) => (
+                            <CountryForm
+                                {...field}
+                                onChange={(e) => {
+                                    field.onChange(e);
+                                    trigger('country');
+                                }}
+                            />
+                        )}
+                    />
                 </label>
                 {errors.country && <p className={styles['validation-error']}>{errors.country.message}</p>}
+
                 <button type="submit" disabled={!isValid || isSubmitting}>
                     Submit
                 </button>

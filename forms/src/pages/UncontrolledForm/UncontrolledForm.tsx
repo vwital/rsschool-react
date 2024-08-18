@@ -69,7 +69,6 @@ function UncontrolledForm() {
         const currentPassword = passwordRef.current?.value as string;
         const complexity = passwordComplexity(currentPassword);
         setPasswordStrength(complexity);
-        console.log(currentPassword);
     };
 
     return (

@@ -1,11 +1,12 @@
 import reactLogo from './assets/react.svg';
 import { Link } from 'react-router-dom';
-import './App.css';
 import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectForms } from './state/slices/formSlice';
 import FormResult from './components/FormResult/FormResult';
 import { IFormState } from './utils/interfaces';
+import getRandomKey from './utils/getRandomKey';
+import './App.css';
 
 function App() {
     const [results, setResults] = useState<JSX.Element[]>([]);
@@ -15,7 +16,7 @@ function App() {
         if (formSelector) {
             const length = (formSelector as Array<IFormState>).length;
             const forms = formSelector.map((form: IFormState, index) => (
-                <FormResult key={form.name} form={form} ref={index === length - 1 ? lastResultRef : null} />
+                <FormResult key={`${getRandomKey()}${form.name}`} form={form} ref={index === length - 1 ? lastResultRef : null} />
             ));
 
             setResults(forms);
