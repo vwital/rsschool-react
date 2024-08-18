@@ -6,11 +6,13 @@ import CountryForm from '../../components/CountryForm/CountryForm';
 import convertToBase64 from '../../utils/convertImg';
 import { addForm } from '../../state/slices/formSlice';
 import { useDispatch } from 'react-redux';
-import styles from './index.module.css';
 import { useNavigate } from 'react-router-dom';
+import passwordComplexity from '../../utils/passwordComplexity';
+import styles from './index.module.css';
 
 function UncontrolledForm() {
     const [errors, setErrors] = useState<IErrors>({});
+    const [passwordStrength, setPasswordStrength] = useState<string>('');
     const nameRef = useRef<HTMLInputElement>(null);
     const ageRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
@@ -62,6 +64,13 @@ function UncontrolledForm() {
             });
     };
 
+    const handlePasswordInput = () => {
+        const currentPassword = passwordRef.current?.value as string;
+        const complexity = passwordComplexity(currentPassword);
+        setPasswordStrength(complexity);
+        console.log(currentPassword);
+    };
+
     return (
         <div className={styles['uncontrolled-form']}>
             <h1>Uncontrolled Form</h1>
@@ -82,8 +91,13 @@ function UncontrolledForm() {
             {errors.email && <p className={styles['validation-error']}>{errors.email}</p>}
             <label htmlFor="password">
                 Password
-                <input ref={passwordRef} id="password" name="password" type="password"></input>
-                <p className={styles['password-complexity']}></p>
+                <input ref={passwordRef} id="password" name="password" type="password" onChange={handlePasswordInput}></input>
+                <div className={styles['password-complexity']}>
+                    <p className={styles['password-complexity-text']}>{passwordStrength}</p>
+                    <div
+                        className={`${styles['password-complexity-bar']} ${passwordStrength === 'Weak' ? styles.weak : passwordStrength === 'Good' ? styles.good : passwordStrength === 'Strong' ? styles.strong : passwordStrength === 'Super strong' ? styles['super-strong'] : styles.none}`}
+                    ></div>
+                </div>
                 {errors.password && <p className={styles['validation-error']}>{errors.password}</p>}
             </label>
             <label htmlFor="confPassword">

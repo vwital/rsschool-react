@@ -14,7 +14,6 @@ function App() {
     useEffect(() => {
         if (formSelector) {
             const length = (formSelector as Array<IFormState>).length;
-            console.log(length);
             const forms = formSelector.map((form: IFormState, index) => (
                 <FormResult key={form.name} form={form} ref={index === length - 1 ? lastResultRef : null} />
             ));
