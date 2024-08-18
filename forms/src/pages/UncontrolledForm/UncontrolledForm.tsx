@@ -3,7 +3,9 @@ import userSchema from '../../utils/schema';
 import * as yup from 'yup';
 import { IErrors } from './interfaces';
 import CountryForm from '../../components/CountryForm/CountryForm';
-
+import convertToBase64 from '../../utils/convertImg';
+import { addForm } from '../../state/slices/formSlice';
+import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
 
 function UncontrolledForm() {
@@ -18,6 +20,8 @@ function UncontrolledForm() {
     const imgRef = useRef<HTMLInputElement>(null);
     const countryRef = useRef<HTMLInputElement>(null);
 
+    const dispatch = useDispatch();
+
     const submitHandler = async () => {
         const formValues = {
             name: nameRef.current?.value,
@@ -31,9 +35,16 @@ function UncontrolledForm() {
             country: countryRef.current?.value,
         };
 
+        let res: string | unknown | null = null;
+        if (formValues.img) {
+            res = await convertToBase64(formValues.img);
+        }
+
         await userSchema
             .validate(formValues, { abortEarly: false })
             .then(() => {
+                const sendingForm = { ...formValues, img: res };
+                dispatch(addForm(sendingForm));
                 setErrors({});
             })
             .catch((errors) => {
