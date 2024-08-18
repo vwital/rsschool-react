@@ -2,6 +2,8 @@ import { useRef, useState } from 'react';
 import userSchema from '../../utils/schema';
 import * as yup from 'yup';
 import { IErrors } from './interfaces';
+import CountryForm from '../../components/CountryForm/CountryForm';
+
 import styles from './index.module.css';
 
 function UncontrolledForm() {
@@ -31,8 +33,7 @@ function UncontrolledForm() {
 
         await userSchema
             .validate(formValues, { abortEarly: false })
-            .then((data) => {
-                console.log('Success validation', data);
+            .then(() => {
                 setErrors({});
             })
             .catch((errors) => {
@@ -46,7 +47,6 @@ function UncontrolledForm() {
                     setErrors(newErrors);
                 }
             });
-        console.log(formValues);
     };
 
     return (
@@ -102,7 +102,7 @@ function UncontrolledForm() {
             {errors.img && <p className={styles['validation-error']}>{errors.img}</p>}
             <label htmlFor="country">
                 Country
-                <input ref={countryRef} id="country" name="country" type="text" />
+                <CountryForm reference={countryRef} />
             </label>
             {errors.country && <p className={styles['validation-error']}>{errors.country}</p>}
             <button type="submit" onClick={submitHandler}>

@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import allCountries from './allCountries';
 
 const regexpEmail = new RegExp(
     /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i
@@ -37,7 +38,10 @@ const userSchema = yup.object().shape({
             return value && value instanceof File && ['image/jpeg', 'image/png'].includes(value.type);
         })
         .test('is-valid-size', 'Max allowed size is 300KB', (value) => value && value instanceof File && value.size <= MAX_IMG_SIZE),
-    country: yup.string().required('Required field'),
+    country: yup
+        .string()
+        .required('Required field')
+        .test('is-valid-country', "Country doesn't exist", (value) => allCountries.includes(value.trim())),
 });
 
 export default userSchema;
